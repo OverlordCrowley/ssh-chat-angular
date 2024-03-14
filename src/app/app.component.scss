@@ -1,0 +1,15 @@
+:root{
+  $primary-color: #8a2be2; // Пурпурный
+  $secondary-color: #ffffff; // Белый
+  $accent-color: #4b0082; // Индиго
+
+  // Фоновые цвета
+  $background-color: #2f2f2f; // Темный фон
+  $foreground-color: #ffffff; // Белый текст
+
+  // Цвета элементов интерфейса
+  $button-background-color: $primary-color; // Фон кнопки
+  $button-text-color: $foreground-color; // Цвет текста на кнопке
+  $input-background-color: lighten($background-color, 10%); // Фоновый цвет ввода
+  $input-text-color: $foreground-color; // Цвет текста ввода
+}
