@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {RouterModule, Routes} from "@angular/router";
-import {RegisterComponent} from "../registration/register/register.component";
-import {LogInComponent} from "../log-in/log-in/log-in.component";
-import {ChatListComponent} from "../all-chats/chat-list/chat-list.component";
-import {ChatComponent} from "../current-chat/chat/chat.component";
+import {RegisterComponent} from "../components/registration/register.component";
+import {LogInComponent} from "../components/log-in/log-in.component";
+import {ChatListComponent} from "../components/all-chats/chat-list.component";
+import {ChatComponent} from "../components/current-chat/chat.component";
 
 const routes: Routes = [
   { path: '', component: ChatListComponent },

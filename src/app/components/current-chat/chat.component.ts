@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent {
+  message: string = String();
 
+  constructor() { }
+
+  sendMessage() {
+
+  }
 }

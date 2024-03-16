@@ -1,0 +1,51 @@
+<div class="registration-section">
+  <div class="wrapper wrapper-modal">
+
+    <form [formGroup]="registrationForm" (ngSubmit)="register()" class="registration-form">
+      <p class="registration-title">Регистрация</p>
+      <div class="input-block">
+        <input type="text" class="standard-input" formControlName="firstName" id="firstName" placeholder=" ">
+        <label for="firstName">Имя</label>
+        <div class="red" *ngIf="registrationForm.get('firstName')?.errors?.['pattern'] && registrationForm.get('firstName')?.touched">
+          Недопустимое имя. Допустимы только буквы.
+        </div>
+        <div class="red" *ngIf="registrationForm.get('firstName')?.errors?.['required'] && registrationForm.get('firstName')?.touched">
+          Заполните поле
+        </div>
+      </div>
+      <div class="input-block">
+        <input type="text" class="standard-input" formControlName="lastName" id="lastName" placeholder=" ">
+        <label for="lastName">Фамилия</label>
+        <div class="red" *ngIf="registrationForm.get('lastName')?.errors?.['pattern'] && registrationForm.get('lastName')?.touched">
+          Недопустимая фамилия. Допустимы только буквы.
+        </div>
+        <div class="red" *ngIf="registrationForm.get('lastName')?.errors?.['required'] && registrationForm.get('lastName')?.touched">
+          Заполните поле
+        </div>
+      </div>
+      <div class="input-block">
+        <input type="email" class="standard-input" formControlName="email" id="email" placeholder=" ">
+        <label for="email">Email</label>
+        <div class="red" *ngIf="registrationForm.get('email')?.errors?.['required'] && registrationForm.get('email')?.touched">
+          Поле Email обязательно для заполнения.
+        </div>
+        <div class="red" *ngIf="registrationForm.get('email')?.errors?.['email'] && registrationForm.get('email')?.touched">
+          Недопустимый формат Email.
+        </div>
+      </div>
+      <div class="input-block">
+        <input type="password" class="standard-input" formControlName="password" id="password" placeholder=" ">
+        <label for="password">Пароль</label>
+        <div class="red" *ngIf="registrationForm.get('password')?.errors?.['required'] && registrationForm.get('password')?.touched">
+          Поле Пароль обязательно для заполнения.
+        </div>
+        <div class="red" *ngIf="registrationForm.get('password')?.errors?.['minlength'] && registrationForm.get('password')?.touched">
+          Пароль должен содержать как минимум 9 символов.
+        </div>
+      </div>
+      <button class="standard-button" type="submit" [disabled]="registrationForm.invalid">Зарегистрироваться</button>
+      <a routerLink="/login" style="text-align: center; width: 100%; display: block">Уже есть аккаунт? Вход</a>
+    </form>
+
+  </div>
+</div>
