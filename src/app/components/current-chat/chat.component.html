@@ -1,1 +1,33 @@
-<p>chat works!</p>
+<div class="chat">
+ <div class="chat-main">
+   <div class="chat-top">
+     <p class="chat-text">
+       <span>firstName</span>&nbsp;<span>lastName</span>
+     </p>
+     <p class="chat-text mt-10">email</p>
+   </div>
+
+   <ul class="message-container">
+     <li class="message-left">
+       <p class="message">Lorem ipsum dolor sit amet.
+         <span>&#9679; 16:50 16 march </span>
+       </p>
+     </li>
+     <li class="message-right">
+       <p class="message">Lorem ipsum dolor sit amet.
+         <span>&#9679; 16:50 16 march </span>
+       </p>
+     </li>
+     <li class="message-feedback">
+       <p class="feedback" id="feedback"> Mr marg is typing</p>
+     </li>
+   </ul>
+ </div>
+
+  <form class="message-form" id="message-form" [formGroup]="chatForm" (ngSubmit)="onSubmit()">
+    <input type="text" name="message" class="message-input" id="message-input" formControlName="message">
+    <button type="submit" class="send-button">
+      <img src="../../../assets/images/icons8-send-90.png" alt="send img">
+    </button>
+  </form>
+</div>

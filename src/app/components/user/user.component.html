@@ -1,1 +1,25 @@
-<p>user works!</p>
+<div [ngClass]="{'user-section-active': this.burgerIsActive, 'user-section': true}">
+  <div class="personal-info">
+    <p class="user-text"><span>Имя: </span><span>firstName</span></p>
+    <p class="user-text"><span>Фамилия: </span><span>lastName</span></p>
+    <p class="user-text"><span>Email: </span><span>email</span></p>
+  </div>
+  <div class="friends-info">
+    <p class="user-text">Ваши друзья</p>
+    <div class="friends-list">
+      <button class="friends-friend">user1</button>
+      <button class="friends-friend">user2</button>
+      <button class="friends-friend">user3</button>
+      <button class="friends-friend">user3</button>
+      <button class="friends-friend">user3</button>
+      <button class="friends-friend">user3</button>
+      <button class="friends-friend">user3</button>
+    </div>
+  </div>
+  <button class="standard-button" (click)="logOut()" style="margin-top: 15px">Выход</button>
+  <div (click)="setActiveBurger()" [ngClass]="{'active': this.burgerIsActive, 'burger': true}">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import * as bcrypt from 'bcryptjs';
 
 @Injectable({
@@ -20,18 +20,23 @@ export class AuthService {
       return this.http.post<any>('http://localhost:8080/api/user/registration', dataToSend);
     }
 
-  login(userData: any): Observable<any> {
-    const hashedPassword = bcrypt.hashSync(userData.password, 10);
+    login(userData: any): Observable<any> {
+      return this.http.post<any>('http://localhost:8080/api/user/login', userData);
+    }
 
-    const dataToSend = {
-      ...userData,
-      password: hashedPassword
-    };
-    console.log(dataToSend)
-    return this.http.post<any>('http://localhost:8080/api/user/login', dataToSend);
-  }
+    setData(user: any) {
+    let date = new Date();
+    date.setHours(date.getHours()+1)
+    const curUser = {...user, expires: date}
+      localStorage.setItem('user', JSON.stringify(curUser));
+    }
 
-  logout(): Observable<any> {
-    return this.http.post<any>('http://localhost:8080/api/user/logout', {});
-  }
+    getData() {
+        const user = localStorage.getItem('user');
+        if(user){
+          return JSON.parse(user)
+        }
+        return undefined
+    }
+
 }

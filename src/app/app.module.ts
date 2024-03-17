@@ -7,8 +7,14 @@ import {RouterOutlet} from "@angular/router";
 import { SearchComponent } from './components/search/search.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RegisterComponent} from "./components/registration/register.component";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {LogInComponent} from "./components/log-in/log-in.component";
+import { MainPageComponent } from './pages/mainPage/main-page.component';
+import { UserComponent } from './components/user/user.component';
+import {ChatComponent} from "./components/current-chat/chat.component";
+import {NgClass, NgFor, NgIf} from "@angular/common";
+import { ChatService } from './services/Chat/chat.service';
+import {AuthInterceptor} from "./Interceptors/authInterceptor";
 
 @NgModule({
   declarations: [
@@ -16,7 +22,10 @@ import {LogInComponent} from "./components/log-in/log-in.component";
     ChatListComponent,
     SearchComponent,
     RegisterComponent,
-    LogInComponent
+    LogInComponent,
+    MainPageComponent,
+    UserComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -24,9 +33,16 @@ import {LogInComponent} from "./components/log-in/log-in.component";
     RouterOutlet,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgClass,
+    NgFor,
+    NgIf
   ],
-  providers: [],
+  providers: [ChatService,  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

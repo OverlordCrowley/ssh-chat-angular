@@ -12,7 +12,7 @@ export class ChatService {
   constructor(  ) {
     this.socket = '';
   }
-  sendMessage(message: string) {
+  sendMessage(message: any) {
     io.connect('http://localhost:8080').emit('message', message);
   }
 

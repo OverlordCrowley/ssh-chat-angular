@@ -5,7 +5,9 @@
   --secondary-color: #ffffff;
   --accent-color: #4b0082;
   --background-color: #2f2f2f;
+  --background-color-secondary: #231F20;
   --foreground-color: #ffffff;
+
 
 }
 *{
@@ -22,9 +24,7 @@
 .mainBody{
   width: 100vw;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
 }
 
 .wrapper{
@@ -92,4 +92,8 @@
 .standard-input:-webkit-autofill:focus {
   -webkit-text-fill-color: var(--foreground-color);
   -webkit-box-shadow: 0 0 0 1000px var(--background-color) inset;
+}
+
+.mt-10{
+  margin-top: 10px;
 }

@@ -1,0 +1,43 @@
+.chat{
+  &-search{
+    background-color: transparent;
+    padding: 5px 25px;
+    & > input{
+      background-color: transparent;
+      width: 100%;
+      border: 2px solid var(--secondary-color);
+      border-radius: 5px;
+      padding: 5px 10px;
+      transition: .25s;
+      &:focus{
+        outline: none;
+        border: 2px solid var(--primary-color);
+        transition: .12s;
+      }
+    }
+  }
+  &-list{
+    min-height: 100vh;
+
+    background-color: var(--background-color);
+    padding-left: 55px;
+    width: 355px;
+  }
+  &-item{
+    cursor: pointer;
+
+    padding: 10px 30px;
+    background-color: var(--background-color);
+    transition: .25s;
+    &:hover{
+      background-color: var(--background-color-secondary);
+      transition: .5s;
+    }
+    &-text{
+      max-width: 100%;
+    }
+  }
+
+}
+
+

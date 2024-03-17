@@ -1,1 +1,9 @@
-<p>chat-list works!</p>
+<div class="chat-list">
+  <form [formGroup]="chatForm" class="chat-search">
+    <input type="text" formControlName="searchInput" (keydown.enter)="onEnter()">
+  </form>
+  <div class="chat-item">
+    <p class="chat-item-text">firstName lastName</p>
+    <p class="chat-item-text">email</p>
+  </div>
+</div>

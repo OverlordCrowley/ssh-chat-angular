@@ -4,12 +4,12 @@ import {RegisterComponent} from "../components/registration/register.component";
 import {LogInComponent} from "../components/log-in/log-in.component";
 import {ChatListComponent} from "../components/all-chats/chat-list.component";
 import {ChatComponent} from "../components/current-chat/chat.component";
+import {MainPageComponent} from "../pages/mainPage/main-page.component";
 
 const routes: Routes = [
-  { path: '', component: ChatListComponent },
+  { path: '', component: MainPageComponent },
   { path: 'registration', component: RegisterComponent },
   { path: 'login', component: LogInComponent },
-  { path: 'chat', component: ChatComponent },
 ];
 
 @NgModule({

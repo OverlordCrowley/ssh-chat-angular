@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/Auth/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -9,7 +10,7 @@ import {AuthService} from "../../services/Auth/auth.service";
 })
 export class RegisterComponent {
   registrationForm: FormGroup;
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) {
+  constructor(private formBuilder: FormBuilder, private router: Router ,private authService: AuthService) {
     this.registrationForm = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.pattern(/^[A-Za-z]+$/)]],
       lastName: ['', [Validators.required, Validators.pattern(/^[A-Za-z]+$/)]],
@@ -28,6 +29,7 @@ export class RegisterComponent {
           password: this.registrationForm.get('password')?.value
         }).subscribe({
           next: (response) => {
+            this.router.navigate(["/login"]);
             console.log('Регистрация прошла успешно:', response);
           },
           error: (error) => {

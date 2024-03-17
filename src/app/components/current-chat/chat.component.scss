@@ -1,0 +1,104 @@
+.chat{
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  &-main{
+
+  }
+
+  background-color: var(--background-color-secondary);
+  &-top{
+    padding: 15px 40px;
+    width: 100%;
+    background-color: var(--accent-color);
+  }
+  &-text{
+    color: var(--foreground-color);
+    & > p{
+    }
+  }
+}
+
+
+.message{
+  &-form{
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+  }
+  &-input{
+    flex-grow: 1;
+    height: 48px;
+    font-size: 16px;
+    border: 1px solid var(--foreground-color);
+    border-bottom: none;
+    border-right: none;
+    outline: none;
+    padding: 0 0 0 12px;
+    background-color: var(--background-color);
+
+  }
+  &-container{
+    display: flex;
+    padding: 25px 100px;
+    flex-direction: column;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+  &-left, &-right{
+    padding: 8px 12px;
+    margin: 12px;
+    max-width: 300px;
+    font-size: 18px;
+    word-wrap: break-word;
+    & > p > span{
+      display: block;
+      font-style: italic;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+  }
+  &-left{
+    border-radius: 20px 20px 20px 0;
+    align-self: flex-start;
+    background-color: transparent;
+    border: 1x solid var(--accent-color);
+    box-shadow: -2px 2px 4px #dcdcdc;
+
+  }
+  &-right {
+    border-radius: 20px 20px 0 20px;
+    align-self: flex-end;
+    background-color: var(--primary-color);
+    color: var(--foreground-color);
+    border: 1x solid var(--accent-color);
+    box-shadow: -4px 4px 4px var(--accent-color);
+  }
+}
+.feedback{
+  font-style: italic;
+  font-size: 14px;
+  padding: 0 16px 16px 16px;
+  color: var(--foreground-color);
+  text-align: center;
+}
+
+
+.send-button{
+  width: 68px;
+  height: 48px;
+  background-color: var(--background-color);
+  border: 1px solid var(--foreground-color);
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  & > img{
+    width: 25px;
+    height: 25px;
+    background-size: cover;
+  }
+}
