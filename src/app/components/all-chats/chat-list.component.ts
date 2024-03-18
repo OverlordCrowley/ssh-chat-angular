@@ -24,7 +24,23 @@ export class ChatListComponent {
   }
 
   onEnter() {
+    this.friend.addToFriends(this.chatForm.get("searchInput")?.value).subscribe({
+      next: (response) => {
+       alert('Пользователь был успешно добавлен в друзья')
+      },
+      error: (error) => {
+        if(error.error.includes("Пользователь с таким email не найден")){
+          alert('Пользователь с таким email не найден')
+        }
+        else if(error.error.includes("Пользователь уже является вашим другом")){
+          alert('Пользователь уже является вашим другом')
 
-    this.friend.addToFriends(this.chatForm.get("email")?.value).subscribe()
+        }
+        else{
+          alert('шибка при добавлении друга')
+          }
+        
+      }
+    });
   }
 }

@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import * as bcrypt from "bcryptjs";
+import {
+  logBuilderStatusWarnings
+} from "@angular-devkit/build-angular/src/builders/browser-esbuild/builder-status-warnings";
 
 @Injectable({
   providedIn: 'root'
@@ -11,49 +14,26 @@ export class FriendService {
 
 
   addToFriends(email: string): Observable<any> {
-    const user = localStorage.getItem('user');
+    const data = {
+      email: email
+    }
 
-    return this.http.post<any>(`http://localhost:8080/api/friends/addToFriends`, email);
+    return this.http.post<any>(`http://localhost:8080/api/friends/addToFriends`, data);
 
   }
   removeFromFriends(email: string): Observable<any> {
-    const user = localStorage.getItem('user');
 
-    if (user) {
-      const token = JSON.parse(user);
-      const headers = new HttpHeaders().set('Authorization', token.accessToken);
-      const data = {
-        "headers": headers,
-        "email": email
-      }
-      return this.http.post<any>(`http://localhost:8080/api/friends/removeFromFriends`, data);
-    }
-    return this.http.post<any>(`http://localhost:8080/api/friends/removeFromFriends`, {});
+    return this.http.post<any>(`http://localhost:8080/api/friends/removeFromFriends`, {email: email});
   }
 
   blockFriend(email: string): Observable<any> {
-    const user = localStorage.getItem('user');
 
-    if(user){
-      const token = JSON.parse(user);
-      const headers = new HttpHeaders().set('Authorization', token.accessToken);
-      const data = {
-        "headers": headers,
-        "email": email
-      }
-      return this.http.post<any>(`http://localhost:8080/api/friends/blockFriend`, data);
-    }
-    return this.http.post<any>(`http://localhost:8080/api/friends/removeFromFriends`, {});
+      return this.http.post<any>(`http://localhost:8080/api/friends/blockFriend`, {email: email});
   }
 
   getAllFriends(): Observable<any> {
-    const user = localStorage.getItem('user');
-   if(user){
-     const token = JSON.parse(user);
 
-     const headers = new HttpHeaders().set('Authorization', token.accessToken);
-     return this.http.post<any>(`http://localhost:8080/api/friends/getFriends`, { headers });
-   }
-    return this.http.post<any>(`http://localhost:8080/api/friends/removeFromFriends`, {});
+     return this.http.post<any>(`http://localhost:8080/api/friends/getFriends`, {});
+
   }
 }
