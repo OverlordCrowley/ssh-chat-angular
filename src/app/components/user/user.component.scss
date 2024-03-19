@@ -27,6 +27,8 @@
   }
   &-friend{
     max-width: 100%;
+    display: flex;
+    align-items: center;
     cursor: pointer;
     margin: 4px;
     word-wrap: break-word;
@@ -34,6 +36,17 @@
     border: 1px solid var(--primary-color);
     border-radius: 15px;
     padding: 5px 10px;
+    & > button{
+      background-color: transparent;
+      width: 15px;
+      height: 15px;
+      margin-left: 5px;
+      cursor: pointer;
+      & > img{
+        width: 15px;
+        height: 15px;
+      }
+    }
   }
 }
 

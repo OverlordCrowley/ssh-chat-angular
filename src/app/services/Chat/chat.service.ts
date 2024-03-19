@@ -1,25 +1,43 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
-import { Observable } from 'rxjs';
-import {stripBom} from "@angular-devkit/build-angular/src/utils/strip-bom";
+import {Observable, Subject} from 'rxjs';
+import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
-  private socket: any
+  private socket: any;
+  userEmail: string;
+  private encryptedMessageSubject = new Subject<string>();
 
-  constructor(  ) {
-    this.socket = '';
-  }
-  sendMessage(message: any) {
-    io.connect('http://localhost:8080').emit('message', message);
+  constructor() {
+    this.userEmail = '';
+    this.setupSocketConnection();
   }
 
-  onMessageReceived(callback: (message: string) => void) {
-    io.connect('http://localhost:8080').on('message', (data: any) => {
-      callback(data);
+  private setupSocketConnection(): void {
+    this.socket = io.connect('http://localhost:8080');
+    this.socket.on('connect', () => {
+      console.log('Connected to server');
     });
+
+    this.socket.on('encryptedMessage', (message: string) => {
+      console.log('Encrypted message received:', message);
+      const bytes = CryptoJS.AES.decrypt(message, this.userEmail);
+      const decryptedMessage = bytes.toString(CryptoJS.enc.Utf8);
+      console.log('Decrypted message:', decryptedMessage);
+      this.encryptedMessageSubject.next(decryptedMessage);
+    });
+  }
+
+  sendMessage(message: string, recipientEmail: string): void {
+    const encryptedMessage = CryptoJS.AES.encrypt(message, recipientEmail).toString();
+    this.socket.emit('encryptedMessage', encryptedMessage);
+  }
+
+  getEncryptedMessages(): Observable<string> {
+    return this.encryptedMessageSubject.asObservable();
   }
 
 }

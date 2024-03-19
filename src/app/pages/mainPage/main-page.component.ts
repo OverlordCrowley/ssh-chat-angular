@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {AuthService} from "../../services/Auth/auth.service";
-import {Router} from "@angular/router";
+import {Observable} from "rxjs";
+import {select, Store} from "@ngrx/store";
+import {selectFriends} from "../../store/selectors/friends.selectors";
 
 @Component({
   selector: 'app-main-page',
@@ -8,8 +9,20 @@ import {Router} from "@angular/router";
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent {
-  constructor() {
+  selectedFriend: any;
+  friends$: Observable<any[]> = new Observable<any[]>();
+  constructor(private store: Store) {
+    this.friends$ = this.store.pipe(
+      select(selectFriends)
+    );
+
+    this.friends$.subscribe((friends) => {
+      this.selectedFriend = friends.length > 0 ? friends[0] : undefined;
+    });
 
 
+  }
+  handleDataFromChild(data: any) {
+    this.selectedFriend = data
   }
 }

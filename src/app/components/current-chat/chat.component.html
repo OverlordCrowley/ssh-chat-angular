@@ -2,25 +2,25 @@
  <div class="chat-main">
    <div class="chat-top">
      <p class="chat-text">
-       <span>firstName</span>&nbsp;<span>lastName</span>
+       <span>{{firstName}}</span>&nbsp;<span>{{lastName}}</span>
      </p>
-     <p class="chat-text mt-10">email</p>
+     <p class="chat-text mt-10">{{email}}</p>
    </div>
 
    <ul class="message-container">
-     <li class="message-left">
-       <p class="message">Lorem ipsum dolor sit amet.
-         <span>&#9679; 16:50 16 march </span>
-       </p>
-     </li>
-     <li class="message-right">
-       <p class="message">Lorem ipsum dolor sit amet.
-         <span>&#9679; 16:50 16 march </span>
-       </p>
-     </li>
-     <li class="message-feedback">
-       <p class="feedback" id="feedback"> Mr marg is typing</p>
-     </li>
+
+     <ng-container *ngFor="let message of messages">
+       <li *ngIf="message.fromMe" class="message-right">
+         <p class="message">{{ message.content }}
+           <span>&#9679; {{ message.timestamp }}</span>
+         </p>
+       </li>
+       <li *ngIf="!message.fromMe" class="message-left">
+         <p class="message">{{ message.content }}
+           <span>&#9679; {{ message.timestamp }}</span>
+         </p>
+       </li>
+     </ng-container>
    </ul>
  </div>
 

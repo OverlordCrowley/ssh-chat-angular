@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {AuthService} from "../../services/Auth/auth.service";
-import {FriendService} from "../../services/Friend/friend.service";
+import {FriendsService} from "../../services/Friends/friends.service";
+import {interval, Observable, tap} from "rxjs";
+import {select, Store} from "@ngrx/store";
+import {selectFriends} from "../../store/selectors/friends.selectors";
+import {getAllFriends} from "../../store/actions/friends.actions";
 
 @Component({
   selector: 'app-chat-list',
@@ -10,8 +14,10 @@ import {FriendService} from "../../services/Friend/friend.service";
 })
 export class ChatListComponent {
   chatForm: FormGroup;
+  friends$: Observable<any[]> = new Observable<any[]>();
+  @Output() dataEvent = new EventEmitter<any>();
 
-  constructor(private formBuilder: FormBuilder, private auth: AuthService, private friend: FriendService) {
+  constructor(private formBuilder: FormBuilder, private auth: AuthService, private friend: FriendsService, private store: Store) {
     this.chatForm = this.formBuilder.group({
       searchInput: ['']
     });
@@ -21,12 +27,21 @@ export class ChatListComponent {
     this.chatForm = this.formBuilder.group({
       searchInput: ['']
     });
+    this.friends$ = this.store.pipe(
+      select(selectFriends)
+    );
+
+  }
+
+  sendFriendId(friend: any){
+    this.dataEvent.emit(friend)
   }
 
   onEnter() {
     this.friend.addToFriends(this.chatForm.get("searchInput")?.value).subscribe({
       next: (response) => {
        alert('Пользователь был успешно добавлен в друзья')
+        this.store.dispatch(getAllFriends());
       },
       error: (error) => {
         if(error.error.includes("Пользователь с таким email не найден")){
@@ -39,7 +54,7 @@ export class ChatListComponent {
         else{
           alert('шибка при добавлении друга')
           }
-        
+
       }
     });
   }

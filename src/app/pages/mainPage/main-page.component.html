@@ -1,5 +1,5 @@
 <div class="mainPage">
   <app-user></app-user>
-  <app-chat-list></app-chat-list>
-  <app-chat class="current-chat"></app-chat>
+  <app-chat-list (dataEvent)="handleDataFromChild($event)"></app-chat-list>
+  <app-chat class="current-chat" [currentFriend]="selectedFriend"></app-chat>
 </div>

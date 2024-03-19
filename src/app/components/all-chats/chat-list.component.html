@@ -2,8 +2,15 @@
   <form [formGroup]="chatForm" class="chat-search">
     <input type="text" formControlName="searchInput" (keydown.enter)="onEnter()">
   </form>
-  <div class="chat-item">
-    <p class="chat-item-text">firstName lastName</p>
-    <p class="chat-item-text">email</p>
-  </div>
+
+    <div *ngIf="friends$ | async as friends">
+      <div *ngFor="let friend of friends">
+<!--        <div class="chat-item">-->
+        <div class="chat-item" (click)="sendFriendId(friend)">
+          <p class="chat-item-text">{{friend['firstName']}} {{friend['lastName']}}</p>
+          <p class="chat-item-text">{{friend['email']}}</p>
+        </div>
+      </div>
+    </div>
+
 </div>

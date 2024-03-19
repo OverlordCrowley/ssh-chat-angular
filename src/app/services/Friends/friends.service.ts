@@ -9,7 +9,7 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class FriendService {
+export class FriendsService {
   constructor(private http: HttpClient) { }
 
 

@@ -15,6 +15,10 @@ import {ChatComponent} from "./components/current-chat/chat.component";
 import {NgClass, NgFor, NgIf} from "@angular/common";
 import { ChatService } from './services/Chat/chat.service';
 import {AuthInterceptor} from "./Interceptors/authInterceptor";
+import {StoreModule} from "@ngrx/store";
+import {EffectsModule} from "@ngrx/effects";
+import {FriendsEffects} from "./store/effects/friends.effects";
+import {friendsReducers} from "./store/reducers/friends.reducers";
 
 @NgModule({
   declarations: [
@@ -36,13 +40,17 @@ import {AuthInterceptor} from "./Interceptors/authInterceptor";
     ReactiveFormsModule,
     NgClass,
     NgFor,
-    NgIf
+    NgIf,
+    StoreModule.forRoot({ friends: friendsReducers }),
+    EffectsModule.forRoot([FriendsEffects])
   ],
   providers: [ChatService,  {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true,
-  }],
+  }
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

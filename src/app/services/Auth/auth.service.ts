@@ -28,8 +28,7 @@ export class AuthService {
     // let date = new Date();
     // date.setHours(date.getMinutes()+1)
       let currentDate = new Date();
-      let date = new Date(currentDate.getTime() + 60000);
-      console.log(date)
+      let date = new Date(currentDate.getTime() + 3600000);
     const curUser = {...user, expires: date}
       localStorage.setItem('user', JSON.stringify(curUser));
     }

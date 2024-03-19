@@ -1,23 +1,26 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthService} from "../../services/Auth/auth.service";
-import {interval, Subscription, switchMap} from "rxjs";
+import {interval, Observable, Subscription, switchMap, tap} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {FriendService} from "../../services/Friend/friend.service";
+import {FriendsService} from "../../services/Friends/friends.service";
+import {select, Store} from "@ngrx/store";
+import {blockFriend, getAllFriends, removeFromFriends} from "../../store/actions/friends.actions";
+import {selectFriends} from "../../store/selectors/friends.selectors";
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, OnDestroy {
   burgerIsActive = false;
   email: string;
   firstName :string;
   lastName: string;
-  friends: any;
-  subscription: Subscription = new Subscription();
-  constructor(private router: Router, private auth: AuthService, private http: HttpClient, private friend: FriendService) {
+  friends$: Observable<any[]> = new Observable<any[]>();
+  private intervalSubscription: Subscription = new Subscription();
+  constructor(private router: Router, private auth: AuthService, private http: HttpClient, private friend: FriendsService, private store: Store) {
     let usr = this.auth.getData();
     this.email = usr.email;
     this.firstName = usr.firstName;
@@ -26,19 +29,24 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.subscription = interval(5000)
-      .pipe(
-        switchMap(() => this.friend.getAllFriends())
-      )
-      .subscribe(
-        (response) => {
-          this.friends = response;
-          console.log(response)
-        },
-        (error) => {
-          console.error('Error:', error);
-        }
-      );
+    this.friends$ = this.store.pipe(
+      select(selectFriends)
+    );
+    this.store.dispatch(getAllFriends());
+  }
+
+  ngOnDestroy(): void {
+    this.intervalSubscription.unsubscribe();
+  }
+
+  remove(email: string){
+    this.store.dispatch(removeFromFriends({email: email}))
+    this.store.dispatch(getAllFriends());
+  }
+
+  block(email: string){
+    this.store.dispatch(blockFriend({email: email}))
+    this.store.dispatch(getAllFriends());
   }
 
   setActiveBurger(){

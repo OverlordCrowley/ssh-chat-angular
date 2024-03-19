@@ -7,13 +7,19 @@
   <div class="friends-info">
     <p class="user-text">Ваши друзья</p>
     <div class="friends-list">
-      <button class="friends-friend">user1</button>
-      <button class="friends-friend">user2</button>
-      <button class="friends-friend">user3</button>
-      <button class="friends-friend">user3</button>
-      <button class="friends-friend">user3</button>
-      <button class="friends-friend">user3</button>
-      <button class="friends-friend">user3</button>
+      <div *ngIf="friends$ | async as friends">
+        <div *ngFor="let friend of friends">
+          <button class="friends-friend">{{friend['email']}}
+            <button>
+              <img src="./assets/images/icons8-lock-50.png" (click)="block(friend['email'])"  alt="lock icon">
+            </button>
+            <button>
+              <img src="./assets/images/icons8-close-50.png" (click)="remove(friend['email'])" alt="delete icon">
+            </button>
+          </button>
+        </div>
+      </div>
+
     </div>
   </div>
   <button class="standard-button" (click)="logOut()" style="margin-top: 15px">Выход</button>
