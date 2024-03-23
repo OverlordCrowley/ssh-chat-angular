@@ -8,26 +8,70 @@
    </div>
 
    <ul class="message-container">
-
      <ng-container *ngFor="let message of messages">
-       <li *ngIf="message.fromMe" class="message-right">
-         <p class="message">{{ message.content }}
+       <li *ngIf="message['fromMe']" class="message-right">
+         <p class="message">
+           <ng-container *ngIf="!isBase64Image(message['text'])">
+             {{ message['text'] }}
+           </ng-container>
+           <ng-container *ngIf="isBase64Image(message['text'])">
+             <img [src]="message['text']" class="message-img" alt="Image">
+           </ng-container>
            <span>&#9679; {{ message.timestamp }}</span>
          </p>
        </li>
-       <li *ngIf="!message.fromMe" class="message-left">
-         <p class="message">{{ message.content }}
+       <li *ngIf="!message['fromMe']" class="message-left">
+         <p class="message">
+           <ng-container *ngIf="!isBase64Image(message['text'])">
+             {{ message['text'] }}
+           </ng-container>
+           <ng-container *ngIf="isBase64Image(message['text'])">
+             <img [src]="message['text']" class="message-img" alt="Image">
+           </ng-container>
            <span>&#9679; {{ message.timestamp }}</span>
          </p>
        </li>
      </ng-container>
    </ul>
+
  </div>
 
-  <form class="message-form" id="message-form" [formGroup]="chatForm" (ngSubmit)="onSubmit()">
+
+
+
+  <form id="message-form" [formGroup]="chatForm" (ngSubmit)="onSubmit()">
+<!--    <input type="file" name="file" class="custom-file-input" (change)="onFileSelected($event)">-->
+
+    <input type="file" class="file-input"
+           (change)="onFileSelected($event)" #fileUpload>
+
+    <div class="file-upload">
+
+<!--      {{chatForm.get('file')?.value ? "Файл загружен" : "Файл не загружен"}}-->
+
+      <button mat-mini-fab color="primary" class="upload-btn"
+              (click)="fileUpload.click()">
+        <mat-icon>attach_file</mat-icon>
+      </button>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="message-form" >
     <input type="text" name="message" class="message-input" id="message-input" formControlName="message">
+
     <button type="submit" class="send-button">
       <img src="../../../assets/images/icons8-send-90.png" alt="send img">
     </button>
+  </div>
   </form>
 </div>

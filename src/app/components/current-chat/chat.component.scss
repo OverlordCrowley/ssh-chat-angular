@@ -23,6 +23,10 @@
 
 
 .message{
+  &-img{
+    width: 150px;
+    height: 150px;
+  }
   &-form{
     margin-top: auto;
     display: flex;
@@ -46,8 +50,9 @@
     display: flex;
     padding: 25px 100px;
     flex-direction: column;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
+    overflow: auto;
   }
   &-left, &-right{
     padding: 8px 12px;
@@ -101,4 +106,20 @@
     height: 25px;
     background-size: cover;
   }
+}
+
+.file-input {
+  display: none;
+}
+
+.file-upload{
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 15px;
+  margin-bottom: 10px;
+}
+
+.upload-btn{
+  background-color: var(--primary-color);
+  margin-left: auto;
 }

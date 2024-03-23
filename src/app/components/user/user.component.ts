@@ -54,6 +54,12 @@ export class UserComponent implements OnInit, OnDestroy {
   }
   logOut(){
     localStorage.setItem('user', '')
+    this.friends$.subscribe(friends => {
+      friends.forEach(friend => {
+        localStorage.setItem(friend.email, '')
+      });
+    });
+
     this.router.navigate(['login'])
   }
 

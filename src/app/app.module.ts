@@ -19,6 +19,8 @@ import {StoreModule} from "@ngrx/store";
 import {EffectsModule} from "@ngrx/effects";
 import {FriendsEffects} from "./store/effects/friends.effects";
 import {friendsReducers} from "./store/reducers/friends.reducers";
+import { MatIconModule } from '@angular/material/icon';
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -40,9 +42,11 @@ import {friendsReducers} from "./store/reducers/friends.reducers";
     ReactiveFormsModule,
     NgClass,
     NgFor,
+    MatIconModule,
     NgIf,
-    StoreModule.forRoot({ friends: friendsReducers }),
-    EffectsModule.forRoot([FriendsEffects])
+    StoreModule.forRoot({friends: friendsReducers}),
+    EffectsModule.forRoot([FriendsEffects]),
+    MatButtonModule
   ],
   providers: [ChatService,  {
     provide: HTTP_INTERCEPTORS,
