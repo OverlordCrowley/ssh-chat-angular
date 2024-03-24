@@ -55,7 +55,6 @@ export class ChatComponent implements OnChanges, OnInit, OnDestroy {
         let msgs = this.chatService.getMessagesFromLocalStorage(this.email)
 
         if(msgs){
-          // console.log(msgs)
           this.messages = msgs.messages
         }
         this.updateMessageSubscription();
@@ -71,9 +70,6 @@ export class ChatComponent implements OnChanges, OnInit, OnDestroy {
 
     // @ts-ignore
     if(msgs != []){
-      // console.log(msgs)
-      // console.log(msgs.messages)
-      console.log(msgs)
       this.messages = msgs.messages
     }
     this.updateMessageSubscription();
@@ -98,13 +94,10 @@ export class ChatComponent implements OnChanges, OnInit, OnDestroy {
 
 
       if(Array.isArray(this.messages) && this.email == parsedData['email']){
-        console.log('this user')
         this.messages.push({ text: parsedData['decryptedMessage'], fromMe: false, timestamp: curDate });
         this.chatService.saveMessagesToLocalStorage(this.email, { text: parsedData['decryptedMessage'], fromMe: false, timestamp: curDate });
       }
       else{
-        console.log('not this user')
-        console.log(parsedData['decryptedMessage'])
         this.chatService.saveMessagesToLocalStorage(parsedData['email'], {text: parsedData['decryptedMessage'], fromMe: false, timestamp: curDate});
       }
     });
